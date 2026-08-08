@@ -7,6 +7,10 @@
           {
             "type": "command",
             "command": "powershell -NoProfile -File .codex/hooks/block-destructive-sql.ps1"
+          },
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -File .codex/hooks/block-secrets-read.ps1"
           }
         ]
       }
