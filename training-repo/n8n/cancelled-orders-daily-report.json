@@ -204,7 +204,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "date": "={{ $now.toFormat('yyyy-MM-dd') }}",
-            "note": "= 本日無退單"
+            "note": "=本日無退單"
           },
           "matchingColumns": [],
           "schema": [
