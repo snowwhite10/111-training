@@ -1,0 +1,73 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - navigation [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - link "OrderHub" [ref=f1e5] [cursor=pointer]:
+          - /url: /Orders
+        - list [ref=f1e7]:
+          - listitem [ref=f1e8]:
+            - link "訂單" [ref=f1e9] [cursor=pointer]:
+              - /url: /Orders
+          - listitem [ref=f1e10]:
+            - link "商品" [ref=f1e11] [cursor=pointer]:
+              - /url: /Products
+          - listitem [ref=f1e12]:
+            - link "低庫存" [ref=f1e13] [cursor=pointer]:
+              - /url: /Products/LowStock
+          - listitem [ref=f1e14]:
+            - link "客戶" [ref=f1e15] [cursor=pointer]:
+              - /url: /Customers
+  - generic [ref=f1e16]:
+    - alert [ref=f1e17]:
+      - text: "訂單 #205 建立成功"
+      - button "關閉" [ref=f1e18] [cursor=pointer]
+    - main [ref=f1e19]:
+      - generic [ref=f1e20]:
+        - 'heading "訂單 #205 待處理" [level=1] [ref=f1e21]':
+          - text: "訂單 #205"
+          - generic [ref=f1e22]: 待處理
+        - link "回訂單列表" [ref=f1e23] [cursor=pointer]:
+          - /url: /Orders
+      - generic [ref=f1e24]:
+        - generic [ref=f1e25]: 客戶資訊
+        - generic [ref=f1e26]:
+          - generic [ref=f1e27]:
+            - generic [ref=f1e28]:
+              - strong [ref=f1e29]: 蔡承翰
+              - generic [ref=f1e30]: 一般會員
+            - generic [ref=f1e31]: tsai.chenghan@example.com.tw
+            - generic [ref=f1e32]: 建立時間：2026-07-31 10:30
+          - link "查看此客戶的所有訂單" [ref=f1e34] [cursor=pointer]:
+            - /url: /Customers/9/Orders
+      - generic [ref=f1e35]:
+        - generic [ref=f1e36]: 訂單明細
+        - table [ref=f1e37]:
+          - rowgroup [ref=f1e38]:
+            - row [ref=f1e39]:
+              - columnheader "SKU" [ref=f1e40]
+              - columnheader "商品" [ref=f1e41]
+              - columnheader "數量" [ref=f1e42]
+              - columnheader "單價（快照）" [ref=f1e43]
+              - columnheader "小計" [ref=f1e44]
+          - rowgroup [ref=f1e45]:
+            - row [ref=f1e46]:
+              - cell "SKU-1001" [ref=f1e47]
+              - cell "極光 無線滑鼠" [ref=f1e48]
+              - cell "2" [ref=f1e49]
+              - cell "NT$ 1,420.00" [ref=f1e50]
+              - cell "NT$ 2,840.00" [ref=f1e51]
+          - rowgroup [ref=f1e52]:
+            - row [ref=f1e53]:
+              - cell "小計" [ref=f1e54]
+              - cell "NT$ 2,840.00" [ref=f1e55]
+            - row [ref=f1e56]:
+              - cell "會員折扣（0%）" [ref=f1e57]
+              - cell "-NT$ 0.00" [ref=f1e58]
+            - row [ref=f1e59]:
+              - cell [ref=f1e60]:
+                - strong [ref=f1e61]: 應付總額
+              - cell [ref=f1e62]:
+                - strong [ref=f1e63]: NT$ 2,840.00
+      - button "取消訂單" [ref=f1e65] [cursor=pointer]
+  - contentinfo [ref=f1e66]:
+    - generic [ref=f1e67]: © 2026 - OrderHub 訂單管理系統（內部訓練用）

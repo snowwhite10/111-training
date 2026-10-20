@@ -1,0 +1,61 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "OrderHub" [ref=e5] [cursor=pointer]:
+          - /url: /Orders
+        - list [ref=e7]:
+          - listitem [ref=e8]:
+            - link "訂單" [ref=e9] [cursor=pointer]:
+              - /url: /Orders
+          - listitem [ref=e10]:
+            - link "商品" [ref=e11] [cursor=pointer]:
+              - /url: /Products
+          - listitem [ref=e12]:
+            - link "低庫存" [ref=e13] [cursor=pointer]:
+              - /url: /Products/LowStock
+          - listitem [ref=e14]:
+            - link "客戶" [ref=e15] [cursor=pointer]:
+              - /url: /Customers
+  - main [ref=e17]:
+    - heading "低庫存警示" [level=1] [ref=e18]
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: 庫存門檻
+        - spinbutton "庫存門檻" [ref=e22]: "5"
+      - button "查詢" [ref=e24] [cursor=pointer]
+    - table [ref=e25]:
+      - rowgroup [ref=e26]:
+        - row [ref=e27]:
+          - columnheader "SKU" [ref=e28]
+          - columnheader "名稱" [ref=e29]
+          - columnheader "現有庫存" [ref=e30]
+          - columnheader "近 30 天售出數量" [ref=e31]
+      - rowgroup [ref=e32]:
+        - row [ref=e33]:
+          - cell "SKU-1048" [ref=e34]
+          - cell "晨光 行動電源" [ref=e35]
+          - cell "2" [ref=e36]
+          - cell "7" [ref=e37]
+        - row [ref=e38]:
+          - cell "SKU-1005" [ref=e39]
+          - cell "極光 筆電支架" [ref=e40]
+          - cell "3" [ref=e41]
+          - cell "0" [ref=e42]
+        - row [ref=e43]:
+          - cell "SKU-1023" [ref=e44]
+          - cell "雲峰 27吋螢幕" [ref=e45]
+          - cell "3" [ref=e46]
+          - cell "17" [ref=e47]
+        - row [ref=e48]:
+          - cell "SKU-1032" [ref=e49]
+          - cell "曜石 機械鍵盤" [ref=e50]
+          - cell "4" [ref=e51]
+          - cell "22" [ref=e52]
+        - row [ref=e53]:
+          - cell "SKU-1014" [ref=e54]
+          - cell "星河 USB-C 集線器" [ref=e55]
+          - cell "4" [ref=e56]
+          - cell "18" [ref=e57]
+  - contentinfo [ref=e58]:
+    - generic [ref=e59]: © 2026 - OrderHub 訂單管理系統（內部訓練用）

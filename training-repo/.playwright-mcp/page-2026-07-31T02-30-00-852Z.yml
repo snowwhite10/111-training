@@ -1,0 +1,117 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "OrderHub" [ref=e5] [cursor=pointer]:
+          - /url: /Orders
+        - list [ref=e7]:
+          - listitem [ref=e8]:
+            - link "訂單" [ref=e9] [cursor=pointer]:
+              - /url: /Orders
+          - listitem [ref=e10]:
+            - link "商品" [ref=e11] [cursor=pointer]:
+              - /url: /Products
+          - listitem [ref=e12]:
+            - link "低庫存" [ref=e13] [cursor=pointer]:
+              - /url: /Products/LowStock
+          - listitem [ref=e14]:
+            - link "客戶" [ref=e15] [cursor=pointer]:
+              - /url: /Customers
+  - main [ref=e17]:
+    - heading "建立訂單" [level=1] [ref=e18]
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: 客戶
+        - combobox "客戶" [ref=e22]:
+          - option "-- 請選擇客戶 --" [selected]
+          - option "蔡承翰（一般會員）"
+          - option "陳志明（金卡會員）"
+          - option "郭俊傑（金卡會員）"
+          - option "洪千惠（一般會員）"
+          - option "黃冠宇（銀卡會員）"
+          - option "賴怡君（一般會員）"
+          - option "李建宏（一般會員）"
+          - option "林淑芬（一般會員）"
+          - option "劉思穎（金卡會員）"
+          - option "邱柏睿（一般會員）"
+          - option "王美玲（銀卡會員）"
+          - option "吳宗翰（一般會員）"
+          - option "謝博文（銀卡會員）"
+          - option "徐若瑄（一般會員）"
+          - option "許家豪（一般會員）"
+          - option "楊佩珊（銀卡會員）"
+          - option "曾雅雯（一般會員）"
+          - option "張雅婷（一般會員）"
+          - option "鄭欣怡（一般會員）"
+          - option "周振宇（銀卡會員）"
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: 商品明細
+          - button "新增一列" [ref=e26] [cursor=pointer]
+        - table [ref=e28]:
+          - rowgroup [ref=e29]:
+            - row [ref=e30]:
+              - columnheader "商品" [ref=e31]
+              - columnheader "數量" [ref=e32]
+              - columnheader [ref=e33]
+          - rowgroup [ref=e34]:
+            - row [ref=e35]:
+              - cell "-- 請選擇商品 --" [ref=e36]:
+                - combobox [ref=e37]:
+                  - option "-- 請選擇商品 --" [selected]
+                  - option "SKU-1001 極光 無線滑鼠（庫存 24，NT$ 1,420.00）"
+                  - option "SKU-1002 極光 機械鍵盤（庫存 102，NT$ 2,320.00）"
+                  - option "SKU-1003 極光 27吋螢幕（庫存 44，NT$ 1,470.00）"
+                  - option "SKU-1004 極光 USB-C 集線器（庫存 70，NT$ 3,750.00）"
+                  - option "SKU-1005 極光 筆電支架（庫存 3，NT$ 2,990.00）"
+                  - option "SKU-1006 極光 網路攝影機（庫存 43，NT$ 2,120.00）"
+                  - option "SKU-1007 極光 降噪耳機（庫存 52，NT$ 1,930.00）"
+                  - option "SKU-1008 極光 行動電源（庫存 52，NT$ 3,300.00）"
+                  - option "SKU-1010 極光 桌上麥克風（庫存 86，NT$ 1,320.00）"
+                  - option "SKU-1011 星河 無線滑鼠（庫存 91，NT$ 3,600.00）"
+                  - option "SKU-1012 星河 機械鍵盤（庫存 52，NT$ 160.00）"
+                  - option "SKU-1013 星河 27吋螢幕（庫存 104，NT$ 340.00）"
+                  - option "SKU-1014 星河 USB-C 集線器（庫存 4，NT$ 3,740.00）"
+                  - option "SKU-1015 星河 筆電支架（庫存 17，NT$ 2,290.00）"
+                  - option "SKU-1016 星河 網路攝影機（庫存 61，NT$ 520.00）"
+                  - option "SKU-1017 星河 降噪耳機（庫存 46，NT$ 2,240.00）"
+                  - option "SKU-1018 星河 行動電源（庫存 39，NT$ 1,610.00）"
+                  - option "SKU-1019 星河 HDMI 傳輸線（庫存 38，NT$ 370.00）"
+                  - option "SKU-1020 星河 桌上麥克風（庫存 79，NT$ 2,180.00）"
+                  - option "SKU-1021 雲峰 無線滑鼠（庫存 48，NT$ 1,840.00）"
+                  - option "SKU-1022 雲峰 機械鍵盤（庫存 24，NT$ 1,530.00）"
+                  - option "SKU-1023 雲峰 27吋螢幕（庫存 3，NT$ 1,010.00）"
+                  - option "SKU-1024 雲峰 USB-C 集線器（庫存 32，NT$ 2,070.00）"
+                  - option "SKU-1025 雲峰 筆電支架（庫存 48，NT$ 3,790.00）"
+                  - option "SKU-1026 雲峰 網路攝影機（庫存 100，NT$ 3,330.00）"
+                  - option "SKU-1028 雲峰 行動電源（庫存 79，NT$ 1,810.00）"
+                  - option "SKU-1029 雲峰 HDMI 傳輸線（庫存 37，NT$ 470.00）"
+                  - option "SKU-1030 雲峰 桌上麥克風（庫存 68，NT$ 3,090.00）"
+                  - option "SKU-1031 曜石 無線滑鼠（庫存 106，NT$ 1,430.00）"
+                  - option "SKU-1032 曜石 機械鍵盤（庫存 4，NT$ 3,870.00）"
+                  - option "SKU-1033 曜石 27吋螢幕（庫存 23，NT$ 2,500.00）"
+                  - option "SKU-1034 曜石 USB-C 集線器（庫存 32，NT$ 2,910.00）"
+                  - option "SKU-1035 曜石 筆電支架（庫存 76，NT$ 3,850.00）"
+                  - option "SKU-1036 曜石 網路攝影機（庫存 58，NT$ 1,190.00）"
+                  - option "SKU-1037 曜石 降噪耳機（庫存 88，NT$ 2,930.00）"
+                  - option "SKU-1038 曜石 行動電源（庫存 75，NT$ 980.00）"
+                  - option "SKU-1039 曜石 HDMI 傳輸線（庫存 112，NT$ 1,480.00）"
+                  - option "SKU-1040 曜石 桌上麥克風（庫存 29，NT$ 560.00）"
+                  - option "SKU-1042 晨光 機械鍵盤（庫存 40，NT$ 560.00）"
+                  - option "SKU-1043 晨光 27吋螢幕（庫存 46，NT$ 860.00）"
+                  - option "SKU-1044 晨光 USB-C 集線器（庫存 98，NT$ 3,110.00）"
+                  - option "SKU-1045 晨光 筆電支架（庫存 96，NT$ 3,450.00）"
+                  - option "SKU-1046 晨光 網路攝影機（庫存 105，NT$ 620.00）"
+                  - option "SKU-1047 晨光 降噪耳機（庫存 18，NT$ 1,860.00）"
+                  - option "SKU-1048 晨光 行動電源（庫存 2，NT$ 1,140.00）"
+                  - option "SKU-1049 晨光 HDMI 傳輸線（庫存 83，NT$ 1,470.00）"
+                  - option "SKU-1050 晨光 桌上麥克風（庫存 31，NT$ 1,940.00）"
+              - cell [ref=e38]:
+                - spinbutton [ref=e39]: "1"
+              - cell [ref=e40]:
+                - button "移除" [ref=e41] [cursor=pointer]
+      - button "送出訂單" [ref=e42] [cursor=pointer]
+      - link "取消" [ref=e43] [cursor=pointer]:
+        - /url: /Orders
+  - contentinfo [ref=e44]:
+    - generic [ref=e45]: © 2026 - OrderHub 訂單管理系統（內部訓練用）
