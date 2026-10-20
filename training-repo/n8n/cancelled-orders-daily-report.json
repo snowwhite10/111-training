@@ -1,0 +1,371 @@
+{
+  "name": "退單巡檢日報",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "0ef2b831-c610-4bfd-9575-b70f86f3ea10",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5150/api/orders/search",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{ \"text\": \"過去 30 天取消的訂單\" }",
+        "options": {}
+      },
+      "id": "ae37f3a5-88fa-4bf6-b970-df4dd0a89abe",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        128
+      ],
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Always Output Data 在空結果時會給一個空 item,先濾掉再算筆數\nconst orders = $input\n  .all()\n  .map((i) => i.json)\n  .filter((o) => o.id !== undefined);\nreturn [{ json: { count: orders.length, orders } }];"
+      },
+      "id": "64b185a6-d5e3-4d6d-b144-830091bb0210",
+      "name": "整理筆數",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=以下是近 30 天取消訂單的查詢結果 JSON(count 為筆數):{{ JSON.stringify($json) }}",
+        "options": {
+          "systemMessage": "你是 OrderHub 的退單巡檢助理。只根據提供的資料寫中文日報,不要編造數字。第一行用一句話摘要(會當 issue 標題),其後列出:總筆數、總金額、值得注意的訂單(高金額或高等級會員)。count 為 0 時只回『本日無退單』。對每筆取消的訂單，先用工具查出品項明細與會員等級，日報中引用查到的實際數字。"
+        }
+      },
+      "id": "b809e812-acd8-4b5a-bbce-da203670b97f",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        672,
+        128
+      ],
+      "retryOnFail": true,
+      "maxTries": 5
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash",
+        "options": {}
+      },
+      "id": "14b980cd-23f2-4ce3-af80-a95b4d6b3cc6",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        352
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "bqkcmFwEX3eLdjJv",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7a2d3b20-0000-4000-8000-0000000000c1",
+              "leftValue": "={{ $('整理筆數').first().json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "53ae17f1-af5e-4470-9a93-745f3f7444da",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "owner": {
+          "__rl": true,
+          "value": "snowwhite10",
+          "mode": "list",
+          "cachedResultName": "snowwhite10",
+          "cachedResultUrl": "https://github.com/snowwhite10"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "111-training",
+          "mode": "list",
+          "cachedResultName": "111-training",
+          "cachedResultUrl": "https://github.com/snowwhite10/111-training"
+        },
+        "title": "={{ $json.output.split('\\n')[0] }}",
+        "body": "={{ $json.output }}",
+        "labels": [],
+        "assignees": []
+      },
+      "id": "2ac17a57-324f-45e0-bc9d-c86f381967f4",
+      "name": "GitHub",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        0
+      ],
+      "webhookId": "f1ce8368-f193-45d8-aa54-105da6769cd9",
+      "credentials": {
+        "githubApi": {
+          "id": "lLaWPQM8AOuwWco3",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/hello",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "report",
+              "value": "={{ $('AI Agent').first().json.output }}"
+            },
+            {
+              "name": "issueUrl",
+              "value": "={{ $json.html_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "49817c94-9696-4b61-be5d-f45ff745b846",
+      "name": "通知",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1440,
+        0
+      ],
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "fFqUAjLjqlFSEgIO",
+          "mode": "list",
+          "cachedResultName": "巡檢紀錄",
+          "cachedResultUrl": "/projects/TqBIUcitnxDfH2Ra/datatables/fFqUAjLjqlFSEgIO"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "date": "={{ $now.toFormat('yyyy-MM-dd') }}",
+            "note": "= 本日無退單"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "note",
+              "displayName": "note",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "024e0926-0ea4-489c-8530-771fc5b7d2fc",
+      "name": "巡檢紀錄",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://localhost:3001",
+        "include": "selected",
+        "includeTools": [
+          "get_order"
+        ],
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.4,
+      "position": [
+        784,
+        480
+      ],
+      "id": "c8a411e2-b470-4d5d-a702-061a7dd07655",
+      "name": "MCP Client"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "整理筆數",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "整理筆數": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "巡檢紀錄",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub": {
+      "main": [
+        [
+          {
+            "node": "通知",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Taipei",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "pinData": {}
+}

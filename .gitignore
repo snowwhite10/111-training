@@ -20,3 +20,6 @@ node_modules/
 
 # Local settings that should not be shared
 *.local.json
+
+# Portable tools (Node 24 + n8n for activity 4)
+.tools/
